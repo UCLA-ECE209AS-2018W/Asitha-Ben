@@ -5,9 +5,12 @@ title: Blockchain Framework for Internet of Things
 <div class="blurb">
 	<h1>Blockchain Framework for Internet of Things</h1>
 	<h2>Project Summary</h2>
-	<p>Our goal is to build a blockchain framework (based off Flowchain) for an IoT network, while ensuring security and stability.</p>
+	<p>Our goal is to build on a blockchain framework (based off Flowchain) for an IoT network, while ensuring security and stability.</p>
+	<p> 
+	The prime motivation for this project was addressing the security risk inherent to P2P networks that a single node being compromised, in order to alter data or for imitation by a malicious actor, can wreak havoc on the rest of the network. At the same time our solution addresses malicious actors attempting to join a private network as if they were an insider. For instance, in a home security system, if an outside IoT device managed to convince a single critical network node that it had permission to unlock the front door, all security on all other nodes can do nothing to prevent it. By adding the blockchain element to the system, a network with heavy amounts of redundancy and immutability, as well as a secure consensus system, can ensure the performance of the security layers as long as a majority of the nodes are uncompromised. 
+	</p>
 	<p>
-	To do this, we learned how Flowchain works, and added a few features to increase the functionality of the framework, while adding security
-		within the network to protect it from adversarial attacks.
+	To do this, we dove into the inner components of Flowchain to explore how it works, and added a few features to increase the functionality of the framework and ensure security within the network to protect it from adversarial attacks. We stressed keeping the network simple and lightweight enough to reliably run 
+	on embedded devices, while also adding significant layers of verification and authentication. Our main contributions to this project were reformatting the network structure itself in order to create a private IoT blockchain network that is capable of securely managing membership in a home or industrial setting.
 	</p>
 </div><!-- /.blurb -->
