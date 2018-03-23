@@ -12,6 +12,25 @@ title: Architecture
     Flowchain seeks to address the problems inherent to crossing blockchain and resource-constrained embedded devices, namely a lack of memory and computational time with which it can manage and validate the chain. It does so by creating a new scheme where each node on the network has its own chain that is continuously being mined, with realtime data transactions that pass through the network being stored in a distributed ledger associated with the blockchain. To cut down on memory usage, only the "most recently used", or MRU, block is kept in the nodes memory. 
   </p>
   <img src="../media/block_structure.PNG" alt="Flowchain Block Structure" width=600>
+  <p>
+    While this is helpful in terms of conserving resources, it adds a good amount of difficulty related to validation and security. The premise behind decentralized blockchain systems is that if everyone has a copy of the same ledger, going back and modifying past transactions becomes impossible. With Flowchain's block system, each chain itself is private, so the owner may go back and modify past transactions unbeknownst to the other members of the network. This is a problem we discuss several solutions for in the Future Work section.
+  </p>
+  <p>
+    The "mining" system works as follows:
+  </p>
+  <ol>
+    <li>The difficulty is set based on the computational resources of the device as well as the amount of time it has been up</li>
+    <li>At a predetermined interval, the node hashes:
+      <ul>
+        <li>The previous block hash</li>
+        <li>Merkle root of transactions</li>
+        <li>Timestamp</li>
+        <li>Nonce</li>
+      </ul>
+    </li>
+    <li>If the generated hash satisfies the difficulty setting, it is used with a new block as the MRU, and the old one is discarded</li>
+  </ol>
+
     
     <h2>Our Contributions</h2>
   <p>
