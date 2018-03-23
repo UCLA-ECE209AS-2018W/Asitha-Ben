@@ -3,31 +3,40 @@ layout: default
 title: Architecture
 ---
 <div class="blurb">
-	<h1>Architecture</h1>	
-  	<h2>Our Contributions</h2>
-	<p>
+  
+  <h1>Architecture</h1>
+  <p>
+    To implement our system, rather than reinvent the wheel we decided to go with an existing, partially-completed open-source blockchain framework called Flowchain. This is a unique blockchain implementation, and we will discuss some of its features before further explaining what we added.
+  </p>
+  <p>
+    Flowchain seeks to address the problems inherent to crossing blockchain and resource-constrained embedded devices, namely a lack of memory and computational time with which it can manage and validate the chain. It does so by creating a new scheme where each node on the network has its own chain that is continuously being mined, with realtime data transactions that pass through the network being stored in a distributed ledger associated with the blockchain. To cut down on memory usage, only the "most recently used", or MRU, block is kept in the nodes memory. 
+  </p>
+  <img src="../media/block_structure.PNG" alt="Flowchain Block Structure">
+    
+    <h2>Our Contributions</h2>
+  <p>
 Stuff about chord protocol
 </p>
-	<h2></h2>
-	<p>
+  <h2></h2>
+  <p>
 </p>
-	<h2>Chord Protocol</h2>
-	<p>
+  <h2>Chord Protocol</h2>
+  <p>
 </p>
-	<h2>Blockchain</h2>
-		<p>
+  <h2>Blockchain</h2>
+    <p>
 
-	</p>
-	<h2>Signature Verification</h2>
-	<p>
+  </p>
+  <h2>Signature Verification</h2>
+  <p>
 </p>
-	<h2>AlphaNode Centric Network</h2>
-	<p>
+  <h2>AlphaNode Centric Network</h2>
+  <p>
 </p>
-	<h2>Permission Joining</h2>
-	<p>
+  <h2>Permission Joining</h2>
+  <p>
 </p>
-	<h2>Consensus System</h2>
-	<p>
+  <h2>Consensus System</h2>
+  <p>
 </p>
   </div><!-- /.blurb -->
