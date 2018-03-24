@@ -55,10 +55,18 @@ title: Architecture
 </li>
   <h2>Chord Protocol</h2>
   <p>
-    
+    The communication system of this network uses a chord protocol. Nodes are organized in a ring, where each node has a "finger table"
+    consisting of log(n) entries, where n is the number of nodes in the ntwork. The first entry of the finger table is the "successor" of that node.
+    This allows for lookup of daat in O(log(n)) time. This implementation also requires a lot of back-and-forth messaging for "chord stabilization" where
+    the finger tables are updated and rearranged as nodes enter and leave.
 </p>
-  <img src="../media/current_hash.png" alt="Current Hash" width=600>
-  
+  <img src="../media/Chord_route.png" alt="Chord Route" width=600>
+  <p>
+    The existing implementation of Chord Protocol had a bug in the stabilization procedure where the finger tables weren't updating correctly, and
+    the proper successors were not being found. This led to the bug where each node was simply pointing to itself as both successor and predecessor.
+    We were able to find and fix this bug to correct the chord implementation.
+  </p>
+  <img src="../media/bug.png" alt="Bug" width=600>
   <h2>Blockchain</h2>
     <p>
   The previous implementation of blockchain creates a hash from the block has and transaction to make a key which corresponds with the transaction in a database.
@@ -83,15 +91,26 @@ title: Architecture
 </p>
   <h2>AlphaNode Centric Network</h2>
   <p>
+    Adding AlphaNode was our way of creating aprivate blockchain/network. New member's cannot join the network unless allowed by AlphaNode, which is 
+    responsible for distributing information to the network (beta nodes). For example, the Admin sends the key and permissions of a new node that
+    wants to join directly to the AlphaNode, which then signs and distributes this information to all other nodes in the network.
+    Each node starts with inherent knowledge of the AlphaNode public key.
 </p>
-  <h2>Permission Joining</h2>
+   <img src="../media/distribution.png" alt="Distribution" width=600>
+  <h2>Permissioned Joining</h2>
   <p>
+    To implement permissioned joining, we modified the chord "Node Join Request" process. new nodes can only be allowed into the network if it was already added
+    to a database as a member. Signing this information and distributing it to other nodes prevents impersonation since the network is able to 
+    verify if the data came from AlphaNode or not.
 </p>
-  <img src="../media/current_hash.png" alt="Current Hash" width=600>
+  <img src="../media/join_request.png" alt="Join Request" width=600>
   <h2>Consensus System</h2>
   <p>
+    Here, we can see how the node receiving the join request validates if that node is allowed to join. To validate, it checks both predecessor and 
+    successor nodes to see if their databases also have the information about the new node requesting to join. If so, the node approves the new node and adds it to its finger table (majority confirmation).
+    To implement this we had to add several new types of chord messages and callback functions within the networking.
 </p>
-  <img src="../media/current_hash.png" alt="Current Hash" width=600>
+  <img src="../media/consensus.png" alt="Consensus" width=600>
   <h2>Distributed Permissioning System</h2>
   <p>
     Currently, node permissions are distributed by AlphaNode only on join requests or permission update requests. We have not implemented node actions yet,
