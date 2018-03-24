@@ -57,7 +57,7 @@ title: Architecture
   <p>
     The communication system of this network uses a chord protocol. Nodes are organized in a ring, where each node has a "finger table"
     consisting of log(n) entries, where n is the number of nodes in the ntwork. The first entry of the finger table is the "successor" of that node.
-    This allows for lookup of daat in O(log(n)) time. This implementation also requires a lot of back-and-forth messaging for "chord stabilization" where
+    This allows for lookup of data in O(log(n)) time. This implementation also requires a lot of back-and-forth messaging for "chord stabilization" where
     the finger tables are updated and rearranged as nodes enter and leave.
 </p>
   <img src="../media/Chord_route.png" alt="Chord Route" width=600>
@@ -69,29 +69,29 @@ title: Architecture
   <img src="../media/bug.png" alt="Bug" width=600>
   <h2>Blockchain</h2>
     <p>
-  The previous implementation of blockchain creates a hash from the block has and transaction to make a key which corresponds with the transaction in a database.
+  The previous implementation of blockchain creates a hash from the block hash and transaction to make a key which corresponds with the transaction in a database.
       The problem with this is that the information regarding the transactions aren't stored in the blockchain at all and verification of the blockchain is difficult
-      sine you have to check every block in the chain to find which one correlates with the transaction you are concerned with. In addition, this implementation only keeps the most recently
-      mined block for each node blockchain, so previous blocks aren't recoverable if needed.
+      since you have to check every block in the chain to find which one correlates with the transaction you are concerned with. In addition, this implementation only keeps the most recently
+      mined block for each node chain, so previous blocks aren't recoverable if needed.
   </p>
   <img src="../media/previous_hash.png" alt="Previous Hash" width=600>
   <p>
     The new implementation uses temporary storage of transactions to record what happens in between the mining of the blocks for each node.
     When a new block is generated, the transactions in that period are hashed into a merkle tree and the root is attached to the new block.
     Also, the key generated into the database is now just a hash of the transaction ID and each database entry consists of the transactions and their corresponding blocks for easy look up.
-    In addition, each node has access to it's whole blockchain, not just the newest block.
+    In addition, each node has access to its whole blockchain, not just the newest block.
   </p>
   <img src="../media/current_hash.png" alt="Current Hash" width=600>
   <h2>Signature Verification</h2>
   <p>
-    The Flowchain system had no mechanism in place for the authentication of nodes or messges, so we added a publig registry of keys and callbacks
+    The Flowchain system had no mechanism in place for the authentication of nodes or messges, so we added a public registry of keys and callbacks
     for the network to verify signatures upon critical messages.  In order to keep the system relatively real-time and low latency, this
     was not done on minor data transactions.
     We used the node.js crypto library for our implementation.
 </p>
   <h2>AlphaNode Centric Network</h2>
   <p>
-    Adding AlphaNode was our way of creating aprivate blockchain/network. New member's cannot join the network unless allowed by AlphaNode, which is 
+    Adding AlphaNode was our way of creating a private blockchain/network. New members cannot join the network unless allowed by AlphaNode, which is 
     responsible for distributing information to the network (beta nodes). For example, the Admin sends the key and permissions of a new node that
     wants to join directly to the AlphaNode, which then signs and distributes this information to all other nodes in the network.
     Each node starts with inherent knowledge of the AlphaNode public key.
@@ -99,9 +99,8 @@ title: Architecture
    <img src="../media/distribution.png" alt="Distribution" width=600>
   <h2>Permissioned Joining</h2>
   <p>
-    To implement permissioned joining, we modified the chord "Node Join Request" process. new nodes can only be allowed into the network if it was already added
-    to a database as a member. Signing this information and distributing it to other nodes prevents impersonation since the network is able to 
-    verify if the data came from AlphaNode or not.
+    To implement permissioned joining, we modified the chord "Node Join Request" Chord process. New nodes can only be allowed into the network if they were already added
+    to the distributed database/blockchain as a member. Signing the address info (IP and Port) and including this with the join request allows the network to verify that the node asking to join is the correct one, and the info isn't being sent from an impersonator. 
 </p>
   <img src="../media/join_request.png" alt="Join Request" width=600>
   <h2>Consensus System</h2>
