@@ -33,16 +33,16 @@ title: Architecture
   
     
     <h2>Our Contributions</h2>
-  <p>
+  <li>
     We updated several key components of the flowchain architure:
    <ul>
         <li>Chord stabilization</li>
         <li>Blockchain data storage</li>
         <li>Mining transactions</li>
       </ul>
-</p>
+</li>
   <img src="../media/framework_2.png" alt="Framework Layers" width=600>
-<p>
+<li>
   We also added new features to increase security:
   <ul>
         <li>Signature verification</li>
@@ -52,19 +52,34 @@ title: Architecture
         <li>Consensus system</li>
         <li>Basis for distributed permissioning system</li>
       </ul>
-</p>
-  <h2></h2>
-  <p>
-</p>
+</li>
   <h2>Chord Protocol</h2>
   <p>
+    
 </p>
+  <img src="../media/current_hash.png" alt="Current Hash" width=600>
+  
   <h2>Blockchain</h2>
     <p>
-
+  The previous implementation of blockchain creates a hash from the block has and transaction to make a key which corresponds with the transaction in a database.
+      The problem with this is that the information regarding the transactions aren't stored in the blockchain at all and verification of the blockchain is difficult
+      sine you have to check every block in the chain to find which one correlates with the transaction you are concerned with. In addition, this implementation only keeps the most recently
+      mined block for each node blockchain, so previous blocks aren't recoverable if needed.
   </p>
+  <img src="../media/previous_hash.png" alt="Previous Hash" width=600>
+  <p>
+    The new implementation uses temporary storage of transactions to record what happens in between the mining of the blocks for each node.
+    When a new block is generated, the transactions in that period are hashed into a merkle tree and the root is attached to the new block.
+    Also, the key generated into the database is now just a hash of the transaction ID and each database entry consists of the transactions and their corresponding blocks for easy look up.
+    In addition, each node has access to it's whole blockchain, not just the newest block.
+  </p>
+  <img src="../media/current_hash.png" alt="Current Hash" width=600>
   <h2>Signature Verification</h2>
   <p>
+    The Flowchain system had no mechanism in place for the authentication of nodes or messges, so we added a publig registry of keys and callbacks
+    for the network to verify signatures upon critical messages.  In order to keep the system relatively real-time and low latency, this
+    was not done on minor data transactions.
+    We used the node.js crypto library for our implementation.
 </p>
   <h2>AlphaNode Centric Network</h2>
   <p>
@@ -72,7 +87,16 @@ title: Architecture
   <h2>Permission Joining</h2>
   <p>
 </p>
+  <img src="../media/current_hash.png" alt="Current Hash" width=600>
   <h2>Consensus System</h2>
   <p>
 </p>
+  <img src="../media/current_hash.png" alt="Current Hash" width=600>
+  <h2>Distributed Permissioning System</h2>
+  <p>
+    Currently, node permissions are distributed by AlphaNode only on join requests or permission update requests. We have not implemented node actions yet,
+    but on creation they could be used for verification that a permission expists for a requested action from a node on critica requests.
+    This functionality would also be useful to use for permission discovery, when we want to find which nodes have a specific permission.
+</p>
+  
   </div><!-- /.blurb -->
