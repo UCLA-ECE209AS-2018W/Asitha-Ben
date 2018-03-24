@@ -4,5 +4,17 @@ title: Scenarios
 ---
 <div class="blurb">
 	<h1>Scenarios</h1>	
-	<p>Here, we show different scenarios that could take place and demonstrate how our network handles them.</p> 
+	<h2>Attacks this System Prevents</h2>
+	<p>
+		This system prevents the impersonation of a joining node through encryption and singatures.
+	</p>
+	<p>
+		If one node has faulty member information, the consensus system would still not allow a new node to join, since that faulty node
+		will check with it's two adjacent nodes and lose majority confirmation. Given this check with two other nodes, we can say that up to 1/3 of the nodes can be compromised and
+		the system could still work if ideally organized.
+	</p>
+	<p>
+		Injection of faulty information could only be accomplished if the entire blockchain was recalculated. This functionality doesn't exist
+		and furthermore, data falsification for transactions is prevented as well.
+	</p>
 </div><!-- /.blurb -->
