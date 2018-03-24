@@ -4,18 +4,21 @@ title: Future
 ---
 <div class="blurb">
 	<h1>Future Work</h1>	
-  	<h2>Improvements</h2>
+  	<h2>Blockchain Validation</h2>
 	<p>
-		There are three main areas important for the improvement of our system: data normalization/pre-processing, additional neural network training/parameter tuning, and sensor placement/ambient light isolation.
-</p>
+	Immutability won't matter in this network context if only one device has the immutable data. Since each device has its own chain, a true blockchain validation scheme will need to be implemented.
+	We could implement resource-rich trusted nodes, each having their own blockchain of devices under their control. This way the nodes could distribute and share information, and keep track of the performance/security of a small network of sensors and actuators underneath them.
+	Also a scheme for periodic reporting and recording of block hashes would be a benificial suppement.
+	</p>
+	<h2>Distributed Permissioning</h2>
 	<p>
-As discussed in the results section, our model is very sensitive to PPG wave range, which can vary based on the sensor and the subject. This suggests that normalization of all data (training and testing) prior to training can lead to more stability. In addition, the noise in the PPG signal can also lead to overfitting of the model. We are using Bayesian regularization to counter this, and change in delay may counter it as well, but filtering and smoothing may aid the process. In addition, filtering and smoothing may also allow for the use of training methods faster than Bayesian regularization. Processing may also lead to the discovery of new features that can be integrated with the NANN to provide more insight into the PPG/ABP correlation.
-</p>
+	Implementing device discovery would make it easier to add a device to the network if it is near, and building on the distributed permissioning system
+	would allow every node in the network to know whicih nodes have which permissions for verification purposes. This implementation would require us to add new query and response functions/chord messages.
+	</p>
+	<h2>Embedded Viability</h2>
 	<p>
-Machine learning methods are highly dependent on large quantities of labeled data. While we obtained a large amount of data from the MIMIC III dataset, time constraints did not allow for training and parameter tuning use all of it. Ideally, out of 50 sets, 35 sets should be used exclusively for training and parameter tuning. For each combination of delay and number of hidden neurons, all 35 sets should be used to compute the model. At the end of this process, the minimum average MSE (training and testing) will determine the optimal delay and number of hidden neurons.
-</p>
-		<p>
-Sensor placement and ambient light isolation is something that can be improved upon as well. Clinical fingertip and wrist PPG sensors fit tightly to the finger or wrist, and can be adjusted to each subject. Our system used an adjustable band, but required the subject to hold down the sensor to allow for proper readings. This causes errors in both placement and ambient light exposure, which we saw to affect performance during testing. For our system, which is extremely sensitive to PPG signal quality and range, improving the hardware and sensor placement method can lead to significant model prediction improvements. 
-
+	The system as it stands is viable on many embedded platforms, even medium-sized ones. Since our blockchain only records critical transactions, it won't use much memory from the devices since the memory storage size of the hashes are relatively small.
+		We have tested the system on beaglebones, and it was shown to be reliable.
+		For a true blockchain implementation with a significant amount of validation and immutability, more resources must be available for the network. Mining also plays an important role in standard blockchains and will need a more robust implementation.
 	</p>
   </div><!-- /.blurb -->
